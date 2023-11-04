@@ -10,8 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Repository
@@ -40,16 +38,15 @@ public class BoardListRepository {
 
     public List<Board> boardList() {
         return jdbcTemplate.query("SELECT * FROM Board", (rs, rowNum) -> {
-            Board board = new Board(rs.getLong("id")
-                    , rs.getString("title")
-                    , rs.getString("name")
-                    , rs.getTimestamp("created_date")
-                    , rs.getLong("view_cnt"));
-            Timestamp createdDate = rs.getTimestamp("created_date");
-            String formattedCreatedDate = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분")
-                    .format(createdDate);
-            board.setFormattedCreatedDate(formattedCreatedDate);
-            return board;
+            return Board
+                    .builder()
+                    .id(rs.getLong("id"))
+                    .title(rs.getString("title"))
+                    .name(rs.getString("name"))
+                    .createdDate(rs.getTimestamp("created_date"))
+                    .formattedCreatedDate(Board.dateFormat().format(rs.getTimestamp("created_date")))
+                    .viewCnt(rs.getLong("view_cnt"))
+                    .build();
         });
     }
 

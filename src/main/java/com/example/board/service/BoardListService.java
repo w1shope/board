@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardListService {
     private final BoardListRepository boardListRepository;
+
     @Transactional
     public Long enrolBoard(BoardEnrolDto boardEnrolDto) {
         return boardListRepository.enrol(boardEnrolDto);
