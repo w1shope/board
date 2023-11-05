@@ -1,14 +1,13 @@
-package com.example.board.controller;
+package com.example.board.controller.board;
 
-import com.example.board.domain.Board;
-import com.example.board.service.BoardListService;
+import com.example.board.domain.board.Board;
+import com.example.board.service.board.BoardListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
@@ -27,9 +26,10 @@ public class BoardListController {
         return "/list";
     }
 
-    private String timeStampToString(Timestamp timestamp) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 MM분");
-        String formattedDate = dateFormat.format(timestamp);
-        return formattedDate;
+    @GetMapping("/boards/{id}")
+    public String board(@PathVariable Long id, Model model) {
+        Board board = boardListService.findById(id);
+        model.addAttribute("board", board);
+        return "/read";
     }
 }

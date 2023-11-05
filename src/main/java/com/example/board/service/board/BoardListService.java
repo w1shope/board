@@ -1,8 +1,7 @@
-package com.example.board.service;
+package com.example.board.service.board;
 
-import com.example.board.domain.Board;
-import com.example.board.dto.board.BoardEnrolDto;
-import com.example.board.repository.BoardListRepository;
+import com.example.board.domain.board.Board;
+import com.example.board.repository.board.BoardListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +14,12 @@ public class BoardListService {
     private final BoardListRepository boardListRepository;
 
     @Transactional
-    public Long enrolBoard(BoardEnrolDto boardEnrolDto) {
-        return boardListRepository.enrol(boardEnrolDto);
+    public Board findById(Long id) {
+        return boardListRepository.findBoard(id);
     }
 
     @Transactional
     public List<Board> findAll() {
-        return boardListRepository.boardList();
-    }
+        return boardListRepository.boardList();}
 }
 
