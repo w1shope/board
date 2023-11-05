@@ -1,5 +1,6 @@
-package com.example.board.domain;
+package com.example.board.domain.board;
 
+import com.example.board.domain.user.User;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,13 +20,16 @@ public class Board {
     private Timestamp createdDate;
     private String formattedCreatedDate;
     @NotBlank
+    private String content;
+    @NotBlank
     private Long viewCnt;
 
     @Builder
-    public Board(Long id, String title, String name, Timestamp createdDate, String formattedCreatedDate, Long viewCnt) {
+    private Board(Long id, String title, String name, String content, Timestamp createdDate, String formattedCreatedDate, Long viewCnt) {
         this.id = id;
         this.title = title;
         this.name = name;
+        this.content = content;
         this.createdDate = createdDate;
         this.formattedCreatedDate = formattedCreatedDate;
         this.viewCnt = viewCnt;
