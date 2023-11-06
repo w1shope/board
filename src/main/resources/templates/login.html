@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -20,7 +20,7 @@
 
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" th:checked="${checked}"> 아이디 저장
             </label>
         </div>
         <button class="w-25 btn btn-lg btn-primary" type="submit">Sign in</button>

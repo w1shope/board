@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.Optional;
 
 @Repository
 public class LoginRepository {
@@ -30,7 +29,7 @@ public class LoginRepository {
                                 .password(loginDto.getPassword())
                                 .build();
                     }, loginDto.getLoginId(), loginDto.getPassword());
-        } catch(EmptyResultDataAccessException ex) {
+        } catch (EmptyResultDataAccessException ex) {
             return null;
         }
     }
