@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Slf4j
@@ -24,11 +25,12 @@ public class BoardEnrolController {
     }
 
     @PostMapping("/enrol")
-    public String insertBoardEnrol(BoardEnrolDto boardEnrolDto, Model model) {
+    public String insertBoardEnrol(BoardEnrolDto boardEnrolDto, Model model, RedirectAttributes redirectAttributes) {
         Long enrolBoardId = enrolService.enrolBoard(boardEnrolDto);
         Board findBoard = boardListService.findById(enrolBoardId);
         model.addAttribute("board", findBoard);
-        return "/read";
+        redirectAttributes.addAttribute("id", enrolBoardId);
+        return "redirect:/boards/{id}";
     }
 
 }
