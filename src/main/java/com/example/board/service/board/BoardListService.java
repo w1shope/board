@@ -20,6 +20,7 @@ public class BoardListService {
 
     @Transactional
     public List<Board> findAll() {
-        return boardListRepository.boardList();}
+        return boardListRepository.boardList();
+    }
 }
 

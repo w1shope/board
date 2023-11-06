@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 import javax.sql.DataSource;
 
@@ -29,5 +30,10 @@ public class BoardApplication {
 	public PlatformTransactionManager platformTransactionManager() {
 		DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager(dataSource());
 		return dataSourceTransactionManager;
+	}
+
+	@Bean
+	public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+		return new HiddenHttpMethodFilter();
 	}
 }
