@@ -19,7 +19,7 @@ public class BoardListRepository {
     }
 
     public Board findBoard(Long id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM Board WHERE id = ?",
+        Board board = jdbcTemplate.queryForObject("SELECT * FROM Board WHERE id = ?",
                 (rs, rowNum) -> {
                     return Board.builder()
                             .id(rs.getLong("id"))
@@ -30,6 +30,10 @@ public class BoardListRepository {
                             .viewCnt(rs.getLong("view_cnt"))
                             .build();
                 }, id);
+
+        // 조회수 증가
+        jdbcTemplate.update("UPDATE Board SET view_cnt = view_cnt + 1 WHERE id = ?", board.getId());
+        return board;
     }
 
     public List<Board> boardList() {
