@@ -35,4 +35,15 @@ public class LoginRepository {
             return null;
         }
     }
+
+    public User findByLoginId(String loginId) {
+        return jdbcTemplate.queryForObject("SELECT * FROM User WHERE login_id = ?", (rs, rowNum) -> {
+            return User.builder()
+                    .id(rs.getLong("id"))
+                    .name(rs.getString("name"))
+                    .loginId(rs.getString("login_id"))
+                    .password(rs.getString("password"))
+                    .build();
+        }, loginId);
+    }
 }

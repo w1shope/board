@@ -19,4 +19,9 @@ public class LoginService {
     public User findByLoginIdAndPassword(LoginDto loginDto){
         return loginRepository.findUser(loginDto);
     }
+
+    @Transactional
+    public User findByLoginId(String loginId) {
+        return loginRepository.findByLoginId(loginId);
+    }
 }
