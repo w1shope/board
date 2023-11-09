@@ -1,6 +1,8 @@
 package com.example.board.repository.board;
 
+import com.example.board.domain.user.User;
 import com.example.board.dto.board.BoardEnrolDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -14,6 +16,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Repository
+@Slf4j
 public class BoardEnrolRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -23,16 +26,18 @@ public class BoardEnrolRepository {
     }
 
 
-    public Long enrolBoard(BoardEnrolDto boardEnrolDto) {
+    public Long enrolBoard(BoardEnrolDto boardEnrolDto, User loginUser) {
+        log.info("loginUser={}, id={}", loginUser, loginUser.getId());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Board(title, name, content, created_date, view_cnt) VALUES(?, ?, ?, ?, ?)",
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Board(title, name, content, created_date, view_cnt, login_id) VALUES(?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, boardEnrolDto.getTitle());
             stmt.setString(2, "userA");
             stmt.setString(3, boardEnrolDto.getContent());
             stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
             stmt.setLong(5, 0L);
+            stmt.setLong(6, loginUser.getId());
             return stmt;
         }, keyHolder);
         return keyHolder.getKey().longValue();
