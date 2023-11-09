@@ -77,7 +77,10 @@
         <ul class="nav nav-pills">
             <li class="nav-item"><a th:href="@{/boards}" class="nav-link">Home</a></li>
             <li class="nav-item"><a th:href="@{/enrol}" class="nav-link">게시글 등록</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">로그인</a></li>
+            <li class="nav-item">
+                <a th:if="${loginedUser}" th:href="@{/logout}" class="nav-link">로그아웃</a>
+                <a th:unless="${loginedUser}" th:href="@{/login}" class="nav-link">로그인</a>
+            </li>
             <li class="nav-item"><a href="#" class="nav-link">회원가입</a></li>
         </ul>
     </header>
@@ -87,7 +90,7 @@
     <input type="hidden" name="bno" th:value="${board.id}">
     <input name="title" type="text" th:value="${board.title}" readonly='readonly'><br>
     <textarea name="content" rows="20" th:text="${board.content}" readonly="readonly">content</textarea><br>
-    <button  id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정
+    <button th:onclick="|location.href='@{/boards/rewrite/{id}(id=${board.id})}'|" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정
     </button>
     <form th:action="@{/boards/delete/{id}(id=${board.id})}" method="post">
         <button th:onclick="|location.href='@{/boards/delete/{id}(id=${board.id})}'|" class="btn btn-remove"><i
