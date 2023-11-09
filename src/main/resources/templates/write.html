@@ -79,10 +79,11 @@
             </ul>
         </header>
     </div>
-    <h2 th:class="writing-header">게시판 쓰기</h2>
+    <h2 th:class="writing-header">게시판 글쓰기</h2>
     <form method="post">
         <input name="title" type="text" placeholder="제목을 입력해 주세요." th:value="${board.title}"><br>
         <textarea name="content" rows="20" placeholder="내용을 입력해 주세요." th:text="${board.content}"></textarea><br>
+        <input type="hidden" th:value="${loginUser}">
         <button class="btn btn-list"><i class="fa fa-bars"></i> 등록</button>
     </form>
     <button th:onclick="|location.href='@{/boards}'|" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
