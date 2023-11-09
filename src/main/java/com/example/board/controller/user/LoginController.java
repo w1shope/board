@@ -40,7 +40,6 @@ public class LoginController {
     @PostMapping("/login")
     public String loginUser(LoginDto loginDto, HttpSession session) {
         User loginUser = loginService.findByLoginIdAndPassword(loginDto);
-        log.info("loginUser={}", loginUser);
         if (loginUser == null) {
             return "redirect:/login";
         }

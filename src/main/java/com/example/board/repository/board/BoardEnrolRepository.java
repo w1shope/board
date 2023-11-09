@@ -27,13 +27,13 @@ public class BoardEnrolRepository {
 
 
     public Long enrolBoard(BoardEnrolDto boardEnrolDto, User loginUser) {
-        log.info("loginUser={}, id={}", loginUser, loginUser.getId());
+        log.info("loginUser={}", loginUser);
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Board(title, name, content, created_date, view_cnt, login_id) VALUES(?, ?, ?, ?, ?)",
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Board(title, name, content, created_date, view_cnt, user_id) VALUES(?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, boardEnrolDto.getTitle());
-            stmt.setString(2, "userA");
+            stmt.setString(2, loginUser.getName());
             stmt.setString(3, boardEnrolDto.getContent());
             stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
             stmt.setLong(5, 0L);
