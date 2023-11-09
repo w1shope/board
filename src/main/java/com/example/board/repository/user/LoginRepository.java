@@ -25,8 +25,10 @@ public class LoginRepository {
             return jdbcTemplate.queryForObject("SELECT * FROM User WHERE login_id = ? AND password = ?",
                     (rs, rowNum) -> {
                         return User.builder()
-                                .loginId(loginDto.getLoginId())
-                                .password(loginDto.getPassword())
+                                .id(rs.getLong("id"))
+                                .name(rs.getString("name"))
+                                .loginId(rs.getString("login_id"))
+                                .password(rs.getString("password"))
                                 .build();
                     }, loginDto.getLoginId(), loginDto.getPassword());
         } catch (EmptyResultDataAccessException ex) {
