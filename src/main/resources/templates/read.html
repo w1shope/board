@@ -14,8 +14,8 @@
         }
 
         .container {
-            width : 50%;
-            margin : auto;
+            width: 50%;
+            margin: auto;
         }
 
         .writing-header {
@@ -46,8 +46,9 @@
         }
 
         .frm {
-            width:100%;
+            width: 100%;
         }
+
         .btn {
             background-color: rgb(236, 236, 236); /* Blue background */
             border: none; /* Remove borders */
@@ -67,7 +68,9 @@
 <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            <svg class="bi me-2" width="40" height="32">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
             <span class="fs-4">게시판</span>
         </a>
 
@@ -81,12 +84,17 @@
 </div>
 <div class="container">
     <h2 th:class="writing-header">게시판 읽기</h2>
-        <input type="hidden" name="bno" th:value="${board.id}">
-        <input name="title" type="text" th:value="${board.title}" readonly='readonly'><br>
-        <textarea name="content" rows="20" th:text="${board.content}" readonly="readonly">content</textarea><br>
-        <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>
-        <button th:onclick="|location.href='@{/boards/rewrite/{id}(id=${board.id})}'|" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
-        <button th:onclick="|location.href='@{/boards}'|" class="btn btn-list"><i class="fa fa-bars"></i>목록</button>
+    <input type="hidden" name="bno" th:value="${board.id}">
+    <input name="title" type="text" th:value="${board.title}" readonly='readonly'><br>
+    <textarea name="content" rows="20" th:text="${board.content}" readonly="readonly">content</textarea><br>
+    <button  id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정
+    </button>
+    <form th:action="@{/boards/delete/{id}(id=${board.id})}" method="post">
+        <button th:onclick="|location.href='@{/boards/delete/{id}(id=${board.id})}'|" class="btn btn-remove"><i
+                class="fa fa-trash"></i> 삭제
+        </button>
+    </form>
+    <button th:onclick="|location.href='@{/boards}'|" class="btn btn-list"><i class="fa fa-bars"></i>목록</button>
 </div>
 </body>
 </html>
