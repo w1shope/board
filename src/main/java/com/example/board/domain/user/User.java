@@ -18,14 +18,12 @@ public class User {
     private String loginId;
     @NotEmpty
     private String password;
-    private List<Board> boards;
 
     @Builder
-    public User(Long id, String name, String loginId, String password, List<Board> boards) {
+    public User(Long id, String name, String loginId, String password) {
         this.id = id;
         this.name = name;
         this.loginId = loginId;
         this.password = password;
-        this.boards = boards;
     }
 }
