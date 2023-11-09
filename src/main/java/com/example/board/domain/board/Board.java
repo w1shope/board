@@ -23,9 +23,11 @@ public class Board {
     private String content;
     @NotBlank
     private Long viewCnt;
+    @NotBlank
+    private Long userId;
 
     @Builder
-    private Board(Long id, String title, String name, String content, Timestamp createdDate, String formattedCreatedDate, Long viewCnt) {
+    private Board(Long id, String title, String name, String content, Timestamp createdDate, String formattedCreatedDate, Long viewCnt, Long userId) {
         this.id = id;
         this.title = title;
         this.name = name;
@@ -33,6 +35,7 @@ public class Board {
         this.createdDate = createdDate;
         this.formattedCreatedDate = formattedCreatedDate;
         this.viewCnt = viewCnt;
+        this.userId = userId;
     }
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
