@@ -46,4 +46,15 @@ public class LoginRepository {
                     .build();
         }, loginId);
     }
+
+    public User findById(Long id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM User WHERE id = ?", (rs, rowNum) -> {
+            return User.builder()
+                    .id(rs.getLong("id"))
+                    .name(rs.getString("name"))
+                    .loginId(rs.getString("login_id"))
+                    .password(rs.getString("password"))
+                    .build();
+        }, id);
+    }
 }

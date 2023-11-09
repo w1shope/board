@@ -3,6 +3,7 @@ package com.example.board.controller.board;
 import com.example.board.domain.board.Board;
 import com.example.board.domain.user.User;
 import com.example.board.service.board.BoardListService;
+import com.example.board.service.user.LoginService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import java.util.List;
 public class BoardListController {
 
     private final BoardListService boardListService;
+    private final LoginService loginService;
 
     /**
      * Board 조회
@@ -36,8 +38,10 @@ public class BoardListController {
     }
 
     @GetMapping("/boards/{id}")
-    public String board(@PathVariable Long id, Model model) {
+    public String board(@PathVariable Long id, HttpSession session, Model model) {
+        User loginedUser = (User) session.getAttribute("loginUser");
         Board board = boardListService.findById(id);
+        model.addAttribute("loginedUser", loginedUser);
         model.addAttribute("board", board);
         return "/read";
     }

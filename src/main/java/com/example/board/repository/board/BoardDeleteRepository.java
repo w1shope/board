@@ -16,14 +16,6 @@ public class BoardDeleteRepository {
     }
 
     public void deleteBoard(Long id) {
-        Board board = jdbcTemplate.queryForObject("SELECT * FROM User WHERE board_id = ?", (rs, rowNum) -> {
-            return Board.builder()
-                    .id(id)
-                    .build();
-        }, id);
-        if(board != null) {
-            jdbcTemplate.update("UPDATE User SET board_id = null where board_id = ?", id);
-        }
         jdbcTemplate.update("DELETE FROM Board WHERE id = ?", id);
     }
 }

@@ -24,4 +24,8 @@ public class LoginService {
     public User findByLoginId(String loginId) {
         return loginRepository.findByLoginId(loginId);
     }
+    @Transactional
+    public User findById(Long id) {
+        return loginRepository.findById(id);
+    }
 }
