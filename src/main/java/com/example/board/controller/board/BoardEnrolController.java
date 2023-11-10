@@ -27,17 +27,12 @@ public class BoardEnrolController {
     public String openBoardEnrol(@ModelAttribute Board board, HttpSession session, Model model)
     {
         User loginUser = (User)session.getAttribute("loginUser");
-        log.info("loginUser={}", loginUser);
-        if(loginUser == null)
-            return "redirect:/login";
-
         model.addAttribute("loginUser", loginUser);
         return "/write";
     }
 
     @PostMapping("/enrol")
     public String insertBoardEnrol(BoardEnrolDto boardEnrolDto, String loginId, Model model, RedirectAttributes redirectAttributes) {
-        log.info("loginId={}", loginId);
         User loginedUser = loginService.findByLoginId(loginId);
         Long enrolBoardId = enrolService.enrolBoard(boardEnrolDto, loginedUser);
         Board findBoard = boardListService.findById(enrolBoardId);
