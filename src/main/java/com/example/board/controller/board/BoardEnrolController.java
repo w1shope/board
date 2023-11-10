@@ -28,8 +28,10 @@ public class BoardEnrolController {
     {
         User loginUser = (User)session.getAttribute("loginUser");
         log.info("loginUser={}", loginUser);
-        if(loginUser != null)
-            model.addAttribute("loginUser", loginUser);
+        if(loginUser == null)
+            return "redirect:/login";
+
+        model.addAttribute("loginUser", loginUser);
         return "/write";
     }
 
